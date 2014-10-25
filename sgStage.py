@@ -79,6 +79,7 @@ class sgStage:
                     lose =  self.stages_result[stage_id][character_power][0]
                     try_num = win + lose
                     if try_num:
+
                         win_rate = float(win) / try_num
                         out.append(win_rate)
                     else:
