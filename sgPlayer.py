@@ -21,7 +21,7 @@ class sgPlayer:
 
     def try_stage(self, stage_level):
         if self.is_active == False:
-            return
+            return None
 
         score = self.charactor_power + self.dice_power()
         if score >= stage_level:
@@ -32,11 +32,13 @@ class sgPlayer:
 
         self.active_check()
 
-    def get_last_challenge_result():
+        return self.get_last_challenge_result()
+
+    def get_last_challenge_result(self):
         return self.stage_history[-1]
 
     def next_stage(self):
-        self.charactor_power += 1
+        self.charactor_power += random.randint(0, 3)
         self.stage_counter += 1
 
 
