@@ -27,7 +27,7 @@ class sgStage:
             stage_level = self.stages_difficult[stage_id]
             result = player.try_stage(stage_level)
 
-            player_power = int(player.charactor_power / self.stat_round_num) * self.stat_round_num
+            player_power = int(player.character_power / self.stat_round_num) * self.stat_round_num
 
             if player_power not in self.stages_result[stage_id]:
                 self.stages_result[stage_id][player_power] = [0, 0]
@@ -51,7 +51,7 @@ class sgStage:
         for player in self.players:
             if player.is_active:
                 active_count += 1
-                total_power += player.charactor_power
+                total_power += player.character_power
 
         if active_count:
             return float(total_power) / active_count
@@ -59,13 +59,13 @@ class sgStage:
             return 0.0
 
     def create_stats_map(self):
-        max_power_range = max([player.charactor_power for player in self.players])
+        max_power_range = max([player.character_power for player in self.players])
 
         fp = open('stat_result.csv', "w")
 
         header = ["stage_id", "drop_user_num"]
-        for charactor_power in xrange(0, max_power_range, self.stat_round_num):
-            header.append("status_%.4d" % charactor_power)
+        for character_power in xrange(0, max_power_range, self.stat_round_num):
+            header.append("status_%.4d" % character_power)
         print >>fp, ",".join(header)
 
         for stage_id in xrange(len(self.stages_result)):
@@ -73,10 +73,10 @@ class sgStage:
             drop_user_num = [player.stage_counter for player in self.players if player.is_active == False].count(stage_id)
             out.append(drop_user_num)
 
-            for charactor_power in xrange(0, max_power_range, self.stat_round_num):
-                if charactor_power in self.stages_result[stage_id]:
-                    win = self.stages_result[stage_id][charactor_power][1]
-                    lose =  self.stages_result[stage_id][charactor_power][0]
+            for character_power in xrange(0, max_power_range, self.stat_round_num):
+                if character_power in self.stages_result[stage_id]:
+                    win = self.stages_result[stage_id][character_power][1]
+                    lose =  self.stages_result[stage_id][character_power][0]
                     try_num = win + lose
                     if try_num:
                         win_rate = float(win) / try_num

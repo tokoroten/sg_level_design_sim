@@ -7,7 +7,7 @@ class sgPlayer:
         self.stage_history = []
         self.bored_limit = 10
         self.stage_counter = 0
-        self.charactor_power = 5
+        self.character_power = 5
         self.dice_power = lambda : random.randint(1, 20) + random.randint(1, 20)
 
     def active_check(self):
@@ -23,7 +23,7 @@ class sgPlayer:
         if self.is_active == False:
             return None
 
-        score = self.charactor_power + self.dice_power()
+        score = self.character_power + self.dice_power()
         if score >= stage_level:
             self.stage_history.append(True)
             self.next_stage()
@@ -38,7 +38,7 @@ class sgPlayer:
         return self.stage_history[-1]
 
     def next_stage(self):
-        self.charactor_power += random.randint(0, 10)
+        self.character_power += random.randint(0, 10)
         self.stage_counter += 1
 
 
@@ -47,6 +47,6 @@ if __name__ == "__main__":
 
     for i in xrange(20):
         player.try_stage(14)
-        print player.is_active, player.stage_counter, player.stage_history, player.charactor_power
+        print player.is_active, player.stage_counter, player.stage_history, player.character_power
         if player.is_active == False:
             break
