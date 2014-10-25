@@ -8,7 +8,7 @@ class sgPlayer:
         self.bored_limit = 10
         self.stage_counter = 0
         self.charactor_power = 5
-        self.dice_power = lambda : random.randint(1, 6) + random.randint(1, 6)
+        self.dice_power = lambda : random.randint(1, 20) + random.randint(1, 20)
 
     def active_check(self):
         while len(self.stage_history) > self.bored_limit:
@@ -38,7 +38,7 @@ class sgPlayer:
         return self.stage_history[-1]
 
     def next_stage(self):
-        self.charactor_power += random.randint(0, 3)
+        self.charactor_power += random.randint(0, 10)
         self.stage_counter += 1
 
 
