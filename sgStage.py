@@ -56,6 +56,33 @@ class sgStage:
         else:
             return 0.0
 
+    def create_stats_map(self):
+        max_power_range = max([player.charactor_power for player in self.players])
+
+        fp = open('stat_result.csv', "w")
+
+        header = ["stage_id"]
+        for i in xrange(max_power_range):
+            header.append("status_%.4d" % i)
+        print >>fp, ",".join(header)
+
+        for stage_id in xrange(len(self.stages_result)):
+            out = [stage_id]
+            for charactor_power in xrange(max_power_range):
+                if charactor_power in self.stages_result[stage_id]:
+                    win = self.stages_result[stage_id][charactor_power][1]
+                    lose =  self.stages_result[stage_id][charactor_power][0]
+                    try_num = win + lose
+                    if try_num:
+                        win_rate = float(win) / try_num
+                        out.append(win_rate)
+                    else:
+                        out.append('')
+                else:
+                    out.append('')
+            print >>fp, ",".join(map(str, out))
+        fp.close()
+
 if __name__ == "__main__":
     stage = sgStage()
     stage.create_stage()
@@ -66,3 +93,4 @@ if __name__ == "__main__":
         active_user = stage.get_active_user_count()
         average_power = stage.get_user_average_status()
         print i, active_user, average_power
+    stage.create_stats_map()
