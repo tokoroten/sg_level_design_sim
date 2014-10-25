@@ -5,7 +5,8 @@ import random
 class sgStage:
     def __init__(self):
         self.players = []
-        self.stages = []
+        self.stages_difficult = []
+        self.stages_result = []
 
     def create_player(self):
         for i in xrange(100):
@@ -13,16 +14,30 @@ class sgStage:
 
     def create_stage(self):
         for i in xrange(100):
-            self.stages.append(6 + i + random.randint(1,10))
+            self.stages_difficult.append(6 + i + random.randint(1,10))
+            self.stages_result.append({})
 
     def simulate(self):
         for player in self.players:
             stage_id = player.stage_counter
-            if len(self.stages) < stage_id:
+            if len(self.stages_difficult) < stage_id:
                 continue
 
-            stage_level = self.stages[stage_id]
-            player.try_stage(stage_level)
+            stage_level = self.stages_difficult[stage_id]
+            result = player.try_stage(stage_level)
+
+            player_power = player.charactor_power
+
+            if player_power not in self.stages_result[stage_id]:
+                self.stages_result[stage_id][player_power] = [0, 0]
+
+            if result:
+                # win
+                self.stages_result[stage_id][player_power][1] += 1
+            else:
+                # lose
+                self.stages_result[stage_id][player_power][0] += 1
+
 
     def get_active_user_count(self):
         count = [player.is_active for player in self.players].count(True)
