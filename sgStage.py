@@ -10,7 +10,7 @@ class sgStage:
         self.stat_round_num = 5
 
     def create_player(self):
-        for i in xrange(10000):
+        for i in xrange(100000):
             self.players.append(sgPlayer.sgPlayer())
 
     def create_stage(self):
