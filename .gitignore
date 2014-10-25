@@ -38,3 +38,7 @@ Icon
 
 # python compiled file
 *.pyc
+
+# simulation result file
+*.csv
+*.json
