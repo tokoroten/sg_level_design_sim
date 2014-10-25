@@ -25,9 +25,9 @@ class sgStage:
                 continue
 
             stage_level = self.stages_difficult[stage_id]
-            result = player.try_stage(stage_level)
-
             player_power = int(player.character_power / self.stat_round_num) * self.stat_round_num
+
+            result = player.try_stage(stage_level)
 
             if player_power not in self.stages_result[stage_id]:
                 self.stages_result[stage_id][player_power] = [0, 0]
@@ -63,7 +63,7 @@ class sgStage:
 
         fp = open('stat_result.csv', "w")
 
-        header = ["stage_id", "drop_user_num"]
+        header = ["stage_id", "drop_user_num", "stage_difficult"]
         for character_power in xrange(0, max_power_range, self.stat_round_num):
             header.append("status_%.4d" % character_power)
         print >>fp, ",".join(header)
@@ -72,7 +72,7 @@ class sgStage:
             out = ["stage_id_%.4d" % stage_id]
             drop_user_num = [player.stage_counter for player in self.players if player.is_active == False].count(stage_id)
             out.append(drop_user_num)
-
+            out.append(self.stages_difficult[stage_id])
             for character_power in xrange(0, max_power_range, self.stat_round_num):
                 if character_power in self.stages_result[stage_id]:
                     win = self.stages_result[stage_id][character_power][1]
