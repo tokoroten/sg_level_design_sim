@@ -33,6 +33,9 @@ class sgPlayer:
 
         self.active_check()
 
+    def get_last_challenge_result():
+        return self.stage_history[-1]
+
     def next_stage(self):
         self.charactor_power += 1
         self.stage_counter += 1
