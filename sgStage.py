@@ -13,7 +13,7 @@ class sgStage:
 
     def create_stage(self):
         for i in xrange(100):
-            self.stages.append(8 + i + random.randint(1,10))
+            self.stages.append(6 + i + random.randint(1,10))
 
     def simulate(self):
         for player in self.players:
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     stage.create_stage()
     stage.create_player()
 
-    for i in xrange(20):
+    for i in xrange(50):
         stage.simulate()
         active_user = stage.get_active_user_count()
         average_power = stage.get_user_average_status()

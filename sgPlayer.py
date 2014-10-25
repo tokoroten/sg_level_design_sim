@@ -5,7 +5,7 @@ class sgPlayer:
     def __init__(self):
         self.is_active = True
         self.stage_history = []
-        self.bored_limit = 5
+        self.bored_limit = 10
         self.stage_counter = 0
         self.charactor_power = 5
         self.dice_power = lambda : random.randint(1, 6) + random.randint(1, 6)
@@ -18,7 +18,6 @@ class sgPlayer:
             self.is_active = False
         if self.stage_history.count(False) == self.bored_limit:
             self.is_active = False
-
 
     def try_stage(self, stage_level):
         if self.is_active == False:
