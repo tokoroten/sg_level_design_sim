@@ -33,8 +33,16 @@ class sgPlayer:
 
         self.active_check()
 
-    def next_stage():
+    def next_stage(self):
         self.charactor_power += 1
-        self.stage_counter = 1
+        self.stage_counter += 1
 
 
+if __name__ == "__main__":
+    player = sgPlayer()
+
+    for i in xrange(20):
+        player.try_stage(14)
+        print player.is_active, player.stage_counter, player.stage_history, player.charactor_power
+        if player.is_active == False:
+            break
