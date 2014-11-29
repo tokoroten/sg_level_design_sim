@@ -10,13 +10,21 @@ class sgStage:
         self.stat_round_num = 5
 
     def create_player(self):
-        for i in xrange(100000):
+        for i in xrange(10000):
             self.players.append(sgPlayer.sgPlayer())
 
     def create_stage(self):
+        start_difficult = 10
+        raise_difficult = lambda: random.randint(1, 10)
+
+        self.stages_difficult.append(start_difficult)
+
         for i in xrange(100):
-            self.stages_difficult.append(10 + i * 5 + random.randint(1,10))
-            self.stages_result.append({})
+            last_difficult = self.stages_difficult[-1]
+            current_difficult = last_difficult + raise_difficult()
+            self.stages_difficult.append(current_difficult)
+
+        self.stages_result = [{} for i in xrange(len(self.stages_difficult))]
 
     def simulate(self):
         for player in self.players:
@@ -70,7 +78,7 @@ class sgStage:
 
         for stage_id in xrange(len(self.stages_result)):
             out = ["stage_id_%.4d" % stage_id]
-            drop_user_num = [player.stage_counter for player in self.players if player.is_active == False].count(stage_id)
+            drop_user_num = [player.stage_count_max for player in self.players if player.is_active == False].count(stage_id)
             out.append(drop_user_num)
             out.append(self.stages_difficult[stage_id])
             for character_power in xrange(0, max_power_range, self.stat_round_num):
